@@ -5,7 +5,7 @@ const Grid = require('gridfs-stream');
 
 // Crear el almacenamiento con GridFsStorage
 const storage = new GridFsStorage({
-    url: "mongodb+srv://cantillozapateiroluiseduardo:luis2025@cluster0.hkxye.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    url: process.env.URL_MONGODB,
     options: {
         useNewUrlParser: true,
         useUnifiedTopology: true

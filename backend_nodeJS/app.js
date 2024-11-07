@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // codigo donde realizamos la conexion con mongo atlas
 mongoose
-    .connect("mongodb+srv://cantillozapateiroluiseduardo:luis2025@cluster0.hkxye.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.URL_MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Estamos conectados");
 
