@@ -1,44 +1,43 @@
 import React, { useEffect, useState, useContext } from 'react';
-import songImage from '../assets/song-1.png'; // Ruta relativa
+import songImage from '../assets/song-1.png';
 import MusicPlayer from './MusicPlayer';
 import { SongContext } from './SongContext';
-
-
-import axios from 'axios'
+import axios from 'axios';
 
 function Playlist() {
-
     const [getMusic, setMusic] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
     const { setCurrentSong } = useContext(SongContext);
-
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/music/consultarMusic")
             .then(response => {
-                setMusic(response.data)
-                console.log(response.data)
+                setMusic(response.data);
             })
-    }, [])
+            .catch(error => console.error("Error fetching music data:", error));
+    }, []);
 
     const handleSongClick = (song) => {
         setCurrentSong(song);
     };
 
-
+    // Filtra la lista de canciones según el término de búsqueda
+    const filteredMusic = getMusic.filter((musica) =>
+        musica.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        musica.nombreArtista.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="playlist">
             <div className="genres">
                 <div className="header">
-                    <h5>Genres</h5>
+                    <h5>Generos</h5>
                     <a href="#">See all</a>
                 </div>
                 <div className="items">
-                    {/* Genre items */}
                     <div className="item"><p>Electro<br />Pop</p></div>
                     <div className="item"><p>Dance<br />Beat</p></div>
                     <div className="item"><p>Clubhouse<br />Remix</p></div>
-                    {/* Add more genres as needed */}
                 </div>
             </div>
 
@@ -47,9 +46,22 @@ function Playlist() {
                     <h5>Top Songs</h5>
                     <a href="#">See all</a>
                 </div>
-                <div className="items">
+
+                {/* Campo de entrada para el filtro de búsqueda */}
+                <input
+                    type="text"
+                    placeholder="Buscar música..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={{
+                        marginBottom: '15px', padding: '8px', width: '100%', borderRadius: '10px'
+                    }}
+                />
+
+
+                <div className="items" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     <h4 style={{ color: '#fff', marginBottom: '15px' }}>Top Songs</h4>
-                    {getMusic.map((musica, index) => (
+                    {filteredMusic.map((musica, index) => (
                         <div className="item" key={index} onClick={() => handleSongClick(musica)}>
                             <div className="info">
                                 <p style={{ marginRight: '10px', color: '#aaa' }}>{String(index + 1).padStart(2, '0')}</p>

@@ -178,3 +178,28 @@ exports.getAudio = async (req, res) => {
         });
     }
 };
+
+
+// Función para alternar like
+exports.addlike = async (req, res) => {
+    const { _id } = req.params;
+
+    try {
+        const song = await Music.findById(_id);
+        if (!song) {
+            return res.status(404).json({ message: 'Canción no encontrada' });
+        }
+
+        // Alternar el valor de likes entre 0 y 1
+        song.likes = song.likes > 0 ? 0 : 1;
+
+        await song.save();
+        res.status(200).json({
+            message: song.likes > 0 ? 'Like agregado' : 'Like eliminado',
+            likes: song.likes
+        });
+    } catch (error) {
+        console.error('Error al alternar like:', error);
+        res.status(500).json({ message: 'Error al alternar like' });
+    }
+};

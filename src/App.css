@@ -782,17 +782,12 @@ body {
 }
 
 /* Estilos para la información de la canción */
-.info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+
 
 .info img {
   width: 50px;
   height: 50px;
   border-radius: 8px;
-  margin-right: 10px;
 }
 
 .details {
@@ -830,4 +825,238 @@ body {
 .bxs-plus-square {
   color: #6c63ff;
   cursor: pointer;
+}
+
+.trending {
+  display: flex;
+  align-items: center;
+  /* Centra verticalmente */
+  justify-content: space-between;
+  /* Deja espacio entre los elementos */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.trending .left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trending .info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.trending .artist-plays {
+  display: flex;
+  gap: 10px;
+}
+
+.trending .buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trending img {
+  width: 150px;
+  /* Ajusta según el tamaño deseado */
+  height: auto;
+  border-radius: 10px;
+}
+
+.music-list {
+  padding: 5px;
+}
+
+.music-list .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.music-list .items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Sin espacio entre cada elemento */
+}
+
+.music-list .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+  /* Espacio mínimo alrededor de cada elemento */
+  background-color: #222;
+}
+
+.music-list .item .info {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  /* Muy poco espacio entre número, imagen y detalles */
+}
+
+.music-list .item img {
+  width: 30px;
+  /* Imagen más pequeña para reducir espacio */
+  height: 30px;
+  border-radius: 3px;
+}
+
+.music-list .item .details h5,
+.music-list .item .details p {
+  margin: 0;
+  font-size: 12px;
+  /* Fuente más pequeña */
+}
+
+.music-list .item .actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  /* Muy poco espacio entre ícono y duración */
+}
+
+.music-list .item .actions i {
+  font-size: 16px;
+  /* Íconos más pequeños */
+}
+
+/* Contenedor principal del carrusel */
+.slider-frame {
+  width: 200px;
+  /* Tamaño del carrusel */
+  height: 200px;
+  /* Altura del carrusel */
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Contenedor de las listas de imágenes */
+.slider-frame ul {
+  display: flex;
+  padding: 0;
+  width: 100%;
+  /* Ahora el contenedor ocupará todo el ancho disponible */
+  animation: slide 16s infinite alternate ease-in-out;
+  margin: 0;
+}
+
+/* Cada imagen en el carrusel */
+.slider-frame li {
+  width: 100%;
+  /* Cada imagen ocupa todo el ancho del contenedor */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo de las imágenes */
+.slider-frame img {
+  width: 100%;
+  /* Las imágenes ocupan el 100% del contenedor */
+  height: 100%;
+  /* Ajuste de la altura */
+  object-fit: cover;
+  /* Asegura que las imágenes cubran el espacio sin distorsionarse */
+  border-radius: 8px;
+  /* Esquinas redondeadas */
+}
+
+/* Animación del carrusel */
+@keyframes slide {
+  0% {
+    margin-left: 0;
+  }
+
+  20% {
+    margin-left: 0;
+  }
+
+  25% {
+    margin-left: -100%;
+    /* Mueve una imagen a la izquierda */
+  }
+
+  45% {
+    margin-left: -100%;
+    /* Mantiene la segunda imagen visible */
+  }
+
+  50% {
+    margin-left: -200%;
+    /* Mueve a la tercera imagen */
+  }
+
+  70% {
+    margin-left: -200%;
+    /* Mantiene la tercera imagen visible */
+  }
+
+  75% {
+    margin-left: -300%;
+    /* Mueve a la cuarta imagen */
+  }
+
+  100% {
+    margin-left: -300%;
+    /* Mantiene la cuarta imagen visible */
+  }
+}
+
+/* Efecto de pausa al pasar el ratón por encima */
+.slider-frame ul:hover {
+  animation-play-state: paused;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .slider-frame {
+    width: 100%;
+    /* El carrusel ocupa todo el ancho de la pantalla en dispositivos pequeños */
+  }
+
+  .slider-frame img {
+    width: 100%;
+    /* Las imágenes ocupan el 100% del ancho en dispositivos pequeños */
+    height: 100px;
+    /* Ajuste de altura para pantallas más pequeñas */
+  }
+}
+
+.like-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.like-button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.like-button.liked {
+  background-color: #007bff;
+  /* Azul cuando se hace clic */
+  color: white;
+  border-color: #007bff;
+  /* Cambiar el borde a azul */
+}
+
+.like-button:active {
+  transform: scale(0.98);
 }

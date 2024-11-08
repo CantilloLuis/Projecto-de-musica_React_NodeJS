@@ -11,10 +11,10 @@ function Header() {
                 <a href="#">Live</a>
                 <a href="#">Podcast</a>
             </div>
-            <div className="search">
+            {/* <div className="search">
                 <i className="bx bx-search"></i>
                 <input type="text" placeholder="Type here to search" />
-            </div>
+            </div> */}
         </header>
     );
 }

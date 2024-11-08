@@ -11,6 +11,7 @@ const music = mongoose.Schema({
     urlImagen: { type: String, require: true },
     contentType: { type: String, required: true },
     fileId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'MusicFile' }, // ID de archivo en GridFS
+    likes: { type: Number, required: false, default: 0 }
 
 
 

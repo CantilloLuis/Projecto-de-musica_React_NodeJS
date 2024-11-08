@@ -1,4 +1,5 @@
 import React from 'react';
+import 'boxicons/css/boxicons.min.css';
 
 function Sidebar() {
     return (
@@ -14,44 +15,44 @@ function Sidebar() {
             <div className="menu">
                 <h5>Menu</h5>
                 <ul>
-                    <li><i className="bx bxs-bolt-circle"></i><a href="#">Explore</a></li>
-                    <li><i className="bx bxs-volume-full"></i><a href="#">Genres</a></li>
-                    <li><i className="bx bxs-album"></i><a href="#">Albums</a></li>
-                    <li><i className="bx bxs-microphone"></i><a href="#">Artists</a></li>
+                    <li><i className="bx bxs-bolt-circle"></i><a href="#">Explorar</a></li>
+                    <li><i className="bx bxs-volume-full"></i><a href="#">Géneros</a></li>
+                    <li><i className="bx bxs-album"></i><a href="#">Álbumes</a></li>
+                    <li><i className="bx bxs-microphone"></i><a href="#">Artistas</a></li>
                     <li><i className="bx bxs-radio"></i><a href="#">Podcasts</a></li>
                 </ul>
             </div>
 
             <div className="menu">
-                <h5>Library</h5>
+                <h5>Biblioteca</h5>
                 <ul>
-                    <li><i className="bx bx-undo"></i><a href="#">Recent</a></li>
-                    <li><i className="bx bxs-photo-album"></i><a href="#">Albums</a></li>
-                    <li><i className="bx bxs-heart"></i><a href="#">Favourites</a></li>
-                    <li><i className="bx bxs-folder"></i><a href="#">Local</a></li>
+                    <li><i className="bx bx-undo"></i><a href="#">Recientes</a></li>
+                    <li><i className="bx bxs-photo-album"></i><a href="#">Álbumes</a></li>
+                    <li><i className="bx bxs-heart"></i><a href="#">Favoritos</a></li>
+                    <li><i className="bx bxs-folder"></i><a href="#">Locales</a></li>
                 </ul>
             </div>
 
             <div className="menu">
                 <h5>Playlist</h5>
                 <ul>
-                    <li><i className="bx bxs-plus-square"></i><a href="#">Create New</a></li>
-                    <li><i className="bx bxs-caret-right-circle"></i><a href="#">Best of 2023</a></li>
-                    <li><i className="bx bxs-caret-right-circle"></i><a href="#">Best of 2022</a></li>
+                    <li><i className="bx bxs-plus-square"></i><a href="#">Crear Nueva</a></li>
+                    <li><i className="bx bxs-caret-right-circle"></i><a href="#">Lo Mejor de 2023</a></li>
+                    <li><i className="bx bxs-caret-right-circle"></i><a href="#">Lo Mejor de 2024</a></li>
                     <li><i className="bx bxs-caret-right-circle"></i><a href="#">Kael Fischer</a></li>
                 </ul>
             </div>
 
-            <div className="playing">
+            {/* <div className="playing">
                 <div className="top">
-                    <img src="assets/current.png" alt="Current" />
+                    <img src="assets/current.png" alt="Actual" />
                     <h4>Apple<br />Homepod</h4>
                 </div>
                 <div className="bottom">
                     <i className="bx bx-podcast"></i>
-                    <p>Playing On Device</p>
+                    <p>Reproduciendo en Dispositivo</p>
                 </div>
-            </div>
+            </div> */}
         </aside>
     );
 }
