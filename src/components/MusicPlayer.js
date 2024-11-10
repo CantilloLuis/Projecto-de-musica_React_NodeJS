@@ -9,6 +9,7 @@ function MusicPlayer() {
     const [progress, setProgress] = useState(0); // Store progress in seconds
     const [likes, setLikes] = useState(0); // Start with likes as 0 initially
     const [liked, setLiked] = useState(false); // State to track if the song has likes
+    const [isPlaying, setIsPlaying] = useState(false); // Track if the music is playing
 
     useEffect(() => {
         if (currentSong) {
@@ -43,6 +44,15 @@ function MusicPlayer() {
         }
     };
 
+    // Handle play and pause of music
+    const handlePlay = () => {
+        setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
+    };
+
     return (
         <div className="music-player">
             <div className="top-section">
@@ -58,6 +68,11 @@ function MusicPlayer() {
                         <p>Best of 2024</p>
                         <p>{Math.floor(progress / 60)}:{Math.floor(progress % 60).toString().padStart(2, '0')}</p>
                         <h3>Duración: {currentSong.duracion}</h3>
+                        {isPlaying && (
+                            <div className="visualizer">
+                                <img src="https://cdn.pixabay.com/animation/2023/10/10/13/26/13-26-45-476_512.gif" alt="Visualizer" />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -65,16 +80,16 @@ function MusicPlayer() {
                 <AudioPlayer
                     autoPlay
                     src={audioSrc}
-                    onPlay={() => console.log("onPlay")}
+                    onPlay={handlePlay}
+                    onPause={handlePause}
                     onListen={(e) => handleProgress(e.target.currentTime)}
                 />
-                <div className="lyrics">
-                    <h5>LYRICS</h5>
-                </div>
                 <button onClick={handleLikeToggle} className={`like-button ${liked ? 'liked' : ''}`}>
                     {liked ? `Quitar Like (${likes})` : `Dar Like (${likes})`}
                 </button>
-
+                <div className="lyrics">
+                    <h5>LYRICS</h5>
+                </div>
             </div>
         </div>
     );

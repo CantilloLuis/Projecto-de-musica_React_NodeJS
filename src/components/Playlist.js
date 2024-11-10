@@ -10,12 +10,17 @@ function Playlist() {
     const { setCurrentSong } = useContext(SongContext);
 
     useEffect(() => {
+        ListMusic();
+    }, []);
+
+    // Función para obtener la lista de música
+    const ListMusic = () => {
         axios.get("http://localhost:3001/api/music/consultarMusic")
             .then(response => {
                 setMusic(response.data);
             })
             .catch(error => console.error("Error fetching music data:", error));
-    }, []);
+    };
 
     const handleSongClick = (song) => {
         setCurrentSong(song);

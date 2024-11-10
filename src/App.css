@@ -1060,3 +1060,38 @@ body {
 .like-button:active {
   transform: scale(0.98);
 }
+
+.song-info .description {
+  position: relative;
+  /* Enable positioning context for absolute positioning inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.visualizer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 30%;
+}
+
+.like-button {
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.lyrics {
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+
+  .like-button,
+  .lyrics {
+    display: block;
+    width: 100%;
+  }
+}

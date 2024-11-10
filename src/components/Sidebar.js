@@ -1,5 +1,6 @@
 import React from 'react';
 import 'boxicons/css/boxicons.min.css';
+import Modal from './Modal'
 
 function Sidebar() {
     return (
@@ -34,9 +35,9 @@ function Sidebar() {
             </div>
 
             <div className="menu">
-                <h5>Playlist</h5>
+                <h5>Musica</h5>
                 <ul>
-                    <li><i className="bx bxs-plus-square"></i><a href="#">Crear Nueva</a></li>
+                    <Modal></Modal>
                     <li><i className="bx bxs-caret-right-circle"></i><a href="#">Lo Mejor de 2023</a></li>
                     <li><i className="bx bxs-caret-right-circle"></i><a href="#">Lo Mejor de 2024</a></li>
                     <li><i className="bx bxs-caret-right-circle"></i><a href="#">Kael Fischer</a></li>
