@@ -10,6 +10,7 @@ app.use(cors())
 
 
 const musicRoutes = require("./routes/music");
+const userRoutes = require("./routes/user");
 
 
 
@@ -24,9 +25,11 @@ mongoose
 
     });
 
-//Ruta de la api de autos
+//Ruta de la api de musica
 app.use('/api/music', musicRoutes);
 
+//Ruta de la api de login
+app.use('/api/user', userRoutes);
 
 
 module.exports = app;

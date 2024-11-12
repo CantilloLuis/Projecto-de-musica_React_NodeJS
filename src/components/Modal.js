@@ -4,6 +4,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+
+
 
 const style = {
     position: 'absolute',
@@ -16,6 +20,18 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 
 export default function BasicModal() {
     const [open, setOpen] = React.useState(false);
@@ -133,10 +149,21 @@ export default function BasicModal() {
                         margin="normal"
                     />
 
-                    <Button variant="contained" component="label" fullWidth sx={{ mt: 2 }}>
+                    <Button
+                        component="label"
+                        role={undefined}
+                        variant="contained"
+                        tabIndex={-1}
+                        startIcon={<CloudUploadIcon />}
+                    >
                         Subir Archivo de Audio
-                        <input type="file" accept="audio/*" hidden onChange={handleAudioChange} required />
+                        <VisuallyHiddenInput
+                            type="file"
+                            onChange={handleAudioChange}
+                            multiple
+                        />
                     </Button>
+
 
                     {/* Mostrar nombre del archivo seleccionado */}
                     {audioFile && (

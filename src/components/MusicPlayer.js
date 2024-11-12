@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { SongContext } from './SongContext';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import ComentariosMusic from './ComentariosMusic';
 
 function MusicPlayer() {
     const { currentSong } = useContext(SongContext);
@@ -84,13 +85,11 @@ function MusicPlayer() {
                     onPause={handlePause}
                     onListen={(e) => handleProgress(e.target.currentTime)}
                 />
-                <button onClick={handleLikeToggle} className={`like-button ${liked ? 'liked' : ''}`}>
-                    {liked ? `Quitar Like (${likes})` : `Dar Like (${likes})`}
-                </button>
                 <div className="lyrics">
                     <h5>LYRICS</h5>
                 </div>
             </div>
+            <ComentariosMusic songId={currentSong._id} />
         </div>
     );
 }

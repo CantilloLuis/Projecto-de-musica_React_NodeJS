@@ -6,12 +6,17 @@ const musicController = require("../controllers/musicController");
 //Rutas declaradas para el crud
 router.get("/consultarMusic", musicController.getMusic);
 router.post("/enviarMusic", musicController.uploadMusic);
+router.get('/musicById/:_id', musicController.getMusicById);
 router.get('/audio/:fileId', musicController.getAudio);
-router.post("/likeMusic/:_id", musicController.addlike);
-router.delete("/likeMusic/:_id", musicController.addlike);
-// router.put("/:id", musicController.updateMusic);
-// router.delete("/:id", musicController.deleteMusic);
 
+//Rutas para manejar los like y dislike
+router.post("/:_id/comentario_reaccion/:commentId", musicController.toggleReaction);
+
+
+// Rutas para manejar comentarios
+router.post('/comentarios/:_id/', musicController.addComment); // Agregar un comentario a una canción
+router.put('/:_id/comentario_update/:commentId', musicController.updateComment); // Actualizar un comentario específico
+router.delete('/:_id/comentario_delete/:commentId', musicController.deleteComment); // Eliminar un comentario específico
 
 
 module.exports = router;

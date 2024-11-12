@@ -1,86 +1,26 @@
 const Music = require("../models/music");
 
-//Metodo para llamar autos
+//Metodo para llamar las musicas en general
 exports.getMusic = (req, res) => {
     Music.find().then((musicResult) => {
         res.status(200).json(musicResult);
     });
 };
 
-// //Metodo para agregar autos
-// exports.addAuto = (req, res) => {
-//     const autoAdd = new Auto({
-
-//         //capturando los atributos del front
-//         id: req.body.id,
-//         nombre: req.body.nombre,
-//         cilindraje: req.body.cilindraje,
-//         kilometraje: req.body.kilometraje
-
-
-//     });
-
-//     //se guardan exitosamente en la bd y se envia un mensaje exitoso.
-//     autoAdd.save().then((createdAuto) => {
-//         console.log(createdAuto);
-//         res.status(201).json("Creado satisfactoriamente ");
-//     });
-// };
-
-
-
-
-// //Metodo para actualizar carros
-// exports.updateAuto = async (req, res) => {
-
-//     try {
-
-//         const { id, nombre, cilindraje, kilometraje } = req.body
-//         let auto = await Auto.findById(req.params.id)
-
-//         if (!auto) {
-//             res.status(404).json({ msg: "No existe el auto en el sistema" })
-
-
-//         }
-//         equipo.id = id
-//         equipo.nombre = nombre
-//         equipo.cilindraje = cilindraje
-//         equipo.kilometraje = kilometraje
-
-
-//         auto = await Auto.findByIdAndUpdate({ _id: req.params.id }, auto, { new: true })
-//         res.json(auto)
-
-//     } catch (error) {
-
-//         console.log(error)
-//         res.status(500).send("Error al actualizar el auto registrado")
-//     }
-// }
-
-
-
-// //Metodo para eliminar carros
-
-// exports.deleteAuto = (req, res) => {
-//     const id = req.params.id;
-
-//     Auto.findByIdAndDelete(id)
-//         .then(data => {
-//             if (!data) {
-//                 res.status(404).send({ message: `Auto con id no fue eliminado ${id}. el id es incorrecto` })
-//             } else {
-//                 res.send({
-//                     message: "Auto eliminada con exito!"
-//                 })
-//             }
-//         })
-// }
+// Metodo para obtener una musica por su ID
+exports.getMusicById = async (req, res) => {
+    try {
+        const music = await Music.findById(req.params._id);
+        if (!music) return res.status(404).json({ message: 'Canción no encontrada' });
+        res.json(music);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener la canción', error });
+    }
+};
 
 const upload = require('../upload');
 
-// Ruta para subir música
+// Metodo para subir músicas a la bd
 exports.uploadMusic = [
     upload.single('audio'),  // Primer middleware
     (req, res) => {         // Segundo middleware (tu controlador)
@@ -127,6 +67,7 @@ exports.uploadMusic = [
 const mongoose = require('mongoose');
 const { ObjectID, GridFSBucket } = require("mongodb");
 
+//Metodo para llamar a los audios especificos de la musica por su id
 exports.getAudio = async (req, res) => {
     try {
         // Verificar que la conexión esté establecida
@@ -165,8 +106,6 @@ exports.getAudio = async (req, res) => {
             });
         });
 
-        // Eliminar o ajustar cualquier código relacionado con setTimeout
-        // downloadStream.setTimeout(0); // Eliminar esta línea
 
         downloadStream.pipe(res);
 
@@ -180,9 +119,10 @@ exports.getAudio = async (req, res) => {
 };
 
 
-// Función para alternar like
-exports.addlike = async (req, res) => {
-    const { _id } = req.params;
+//
+exports.toggleReaction = async (req, res) => {
+    const { _id, commentId } = req.params; // ID de la canción y del comentario
+    const { userId, action, username } = req.body;   // ID del usuario y acción ("like" o "dislike")
 
     try {
         const song = await Music.findById(_id);
@@ -190,16 +130,125 @@ exports.addlike = async (req, res) => {
             return res.status(404).json({ message: 'Canción no encontrada' });
         }
 
-        // Alternar el valor de likes entre 0 y 1
-        song.likes = song.likes > 0 ? 0 : 1;
+        // Buscar el comentario específico dentro de la canción
+        const comment = song.comentarios.id(commentId);
+        if (!comment) {
+            return res.status(404).json({ message: 'Comentario no encontrado' });
+        }
 
+        // Buscar si el usuario ya ha reaccionado a este comentario en particular
+        const existingReaction = comment.likeOtherUser.find(reaction => reaction.userId === userId);
+
+        if (action === 'like') {
+            if (existingReaction) {
+                // Si el usuario ya dio "like", se elimina su "like"
+                if (existingReaction.likes === 1) {
+                    existingReaction.likes = 0;
+                    comment.likes -= 1; // Decrementa el contador de likes del comentario
+                } else {
+                    // Cambia de "dislike" a "like"
+                    existingReaction.likes = 1;
+                    existingReaction.dislikes = 0;
+                    comment.likes += 1;
+                    if (comment.dislikes > 0) comment.dislikes -= 1;
+                }
+            } else {
+                // Si el usuario no ha reaccionado, agregar una nueva reacción de "like"
+                comment.likeOtherUser.push({ userId, username, likes: 1, dislikes: 0 });
+                comment.likes += 1;
+            }
+        } else if (action === 'dislike') {
+            if (existingReaction) {
+                // Si el usuario ya dio "dislike", se elimina su "dislike"
+                if (existingReaction.dislikes === 1) {
+                    existingReaction.dislikes = 0;
+                    comment.dislikes -= 1; // Decrementa el contador de dislikes del comentario
+                } else {
+                    // Cambia de "like" a "dislike"
+                    existingReaction.dislikes = 1;
+                    existingReaction.likes = 0;
+                    comment.dislikes += 1;
+                    if (comment.likes > 0) comment.likes -= 1;
+                }
+            } else {
+                // Si el usuario no ha reaccionado, agregar una nueva reacción de "dislike"
+                comment.likeOtherUser.push({ userId, username, likes: 0, dislikes: 1 });
+                comment.dislikes += 1;
+            }
+        } else {
+            return res.status(400).json({ message: 'Acción no válida' });
+        }
+
+        // Guardar los cambios en la canción
         await song.save();
+
         res.status(200).json({
-            message: song.likes > 0 ? 'Like agregado' : 'Like eliminado',
-            likes: song.likes
+            message: action === 'like' ? 'Like actualizado' : 'Dislike actualizado',
+            likes: comment.likes,
+            dislikes: comment.dislikes
         });
     } catch (error) {
-        console.error('Error al alternar like:', error);
-        res.status(500).json({ message: 'Error al alternar like' });
+        console.error('Error al alternar reacción:', error);
+        res.status(500).json({ message: 'Error al alternar reacción' });
+    }
+};
+
+
+
+
+
+// Metodo para agregar un comentario a una musica
+exports.addComment = async (req, res) => {
+    try {
+        const music = await Music.findById(req.params._id);
+        if (!music) return res.status(404).json({ message: 'Canción no encontrada' });
+
+        // Crear y añadir el nuevo comentario
+        const newComment = { text: req.body.text, userId: req.body.userId, calificacion: req.body.calificacion, username: req.body.username, createdAt: new Date(), updatedAt: new Date() };
+        music.comentarios.push(newComment);
+        await music.save();
+
+        res.status(201).json({ message: 'Comentario agregado', comment: newComment });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al agregar el comentario', error });
+    }
+};
+
+// Metodo para actualizar un comentario específico de una musica
+exports.updateComment = async (req, res) => {
+    try {
+        const music = await Music.findById(req.params._id);
+        if (!music) return res.status(404).json({ message: 'Canción no encontrada' });
+
+        // Encontrar el comentario y actualizar el texto y la fecha de actualización
+        const comment = music.comentarios.id(req.params.commentId);
+        if (!comment) return res.status(404).json({ message: 'Comentario no encontrado' });
+
+        comment.text = req.body.text;
+        comment.updatedAt = new Date();
+        await music.save();
+
+        res.json({ message: 'Comentario actualizado', comment });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al actualizar el comentario', error });
+    }
+};
+
+//Metodo para eliminar un comentario específico de una musica
+exports.deleteComment = async (req, res) => {
+    try {
+        const music = await Music.findById(req.params._id);
+        if (!music) return res.status(404).json({ message: 'Canción no encontrada' });
+
+        // Eliminar el comentario por ID
+        const comment = music.comentarios.id(req.params.commentId);
+        if (!comment) return res.status(404).json({ message: 'Comentario no encontrado' });
+
+        comment.remove();
+        await music.save();
+
+        res.json({ message: 'Comentario eliminado' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al eliminar el comentario', error });
     }
 };

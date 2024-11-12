@@ -1,21 +1,34 @@
 const mongoose = require("mongoose");
-/*const mongooseDateFormat = require('mongoose-date-format');*/
 
-const music = mongoose.Schema({
-
-    // Atributos que se utilizaran y  migraran a la BD
-
-    titulo: { type: String, required: true },
-    nombreArtista: { type: String, required: true },
-    duracion: { type: String, require: true },
-    urlImagen: { type: String, require: true },
-    contentType: { type: String, required: true },
-    fileId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'MusicFile' }, // ID de archivo en GridFS
-    likes: { type: Number, required: false, default: 0 }
-
-
-
+const likeOtherUser = new mongoose.Schema({
+    userId: { type: String, required: true }, // ID del usuario que comenta
+    username: { type: String, require: true }, // Username de la persona que realiza el like o dislike
+    likes: { type: Number, default: 0 },             // Contador de likes
+    dislikes: { type: Number, default: 0 },          // Contador de dislikes
 
 });
-/*equipo.plugin(mongooseDateFormat);*/
-module.exports = mongoose.model("music", music);
+
+const comentario = new mongoose.Schema({
+    userId: { type: String, required: true }, // ID del usuario que comenta
+    username: { type: String, require: true }, // Username de la persona que realiza el comentario
+    text: { type: String, required: true },          // Texto del comentario
+    likes: { type: Number, default: 0 },             // Contador de likes
+    dislikes: { type: Number, default: 0 },          // Contador de dislikes
+    likeOtherUser: { type: [likeOtherUser], default: [] },  // Array de like o dislike otros usuarios
+    calificacion: { type: Number, default: 0 }, // Calificaciones
+    createdAt: { type: Date, default: Date.now },    // Fecha de creación
+    updatedAt: { type: Date, default: Date.now }     // Fecha de última actualización
+});
+
+const musicSchema = new mongoose.Schema({
+    titulo: { type: String, required: true },
+    nombreArtista: { type: String, required: true },
+    duracion: { type: String, required: true },
+    urlImagen: { type: String, required: true },
+    contentType: { type: String, required: true },
+    fileId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'MusicFile' }, // ID del archivo en GridFS
+    comentarios: { type: [comentario], default: [] },  // Array de comentarios
+    visitas: { type: Number, default: 0 } // Contador de visitas
+}, { timestamps: true });
+
+module.exports = mongoose.model("Music", musicSchema);

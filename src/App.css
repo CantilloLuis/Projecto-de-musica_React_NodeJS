@@ -1095,3 +1095,141 @@ body {
     width: 100%;
   }
 }
+
+.comments-section {
+  margin-top: 20px;
+  /* background-color: #f5f5f5; */
+  background-color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  color: #fff;
+  height: 400px;
+}
+
+.comments-section h5 {
+  margin-bottom: 10px;
+}
+
+.comments-list {
+  list-style-type: none;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+
+}
+
+.comments-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #444;
+}
+
+.add-comment {
+  display: flex;
+  margin-top: 10px;
+}
+
+.add-comment input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  margin-right: 5px;
+}
+
+.add-comment button {
+  padding: 8px 12px;
+  background-color: #ff6347;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: #ff4500;
+}
+
+
+
+.comment-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.comment {
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #e0e0e0;
+}
+
+.username {
+  font-weight: 600;
+  color: #333;
+  margin-right: 8px;
+}
+
+.timestamp {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.comment-text {
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.action-button {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reply-box {
+  margin-top: 15px;
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.comment-button {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.comment-button:hover {
+  background-color: #0081d6;
+}
