@@ -252,3 +252,27 @@ exports.deleteComment = async (req, res) => {
         res.status(500).json({ message: 'Error al eliminar el comentario', error });
     }
 };
+
+
+//Metodo para incrementar las vistas de una musica
+exports.incrementViews = async (req, res) => {
+    const { _id } = req.params;
+
+    try {
+        // Encuentra la canción por ID y aumenta el contador de vistas en 1
+        const updatedSong = await Music.findByIdAndUpdate(
+            _id,
+            { $inc: { visitas: 1 } }, // Incrementa el campo `visitas` en 1
+            { new: true } // Retorna el documento actualizado
+        );
+
+        if (!updatedSong) {
+            return res.status(404).json({ message: "Canción no encontrada" });
+        }
+
+        res.json({ message: "Vistas incrementadas", updatedSong });
+    } catch (error) {
+        console.error("Error al incrementar las vistas:", error);
+        res.status(500).json({ message: "Error al incrementar las vistas" });
+    }
+};

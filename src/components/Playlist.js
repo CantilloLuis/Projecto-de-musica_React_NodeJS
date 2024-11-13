@@ -24,6 +24,14 @@ function Playlist() {
 
     const handleSongClick = (song) => {
         setCurrentSong(song);
+
+        // Llama a la API para incrementar el contador de vistas
+        axios.put(`http://localhost:3001/api/music/${song._id}/incrementar_vistas`)
+            .then(response => {
+                console.log("Vistas incrementadas:", response.data);
+                setCurrentSong(response.data.updatedSong); // Establece la canción actual con las vistas actualizadas
+            })
+            .catch(error => console.error("Error incrementando las vistas:", error));
     };
 
     // Filtra la lista de canciones según el término de búsqueda

@@ -169,7 +169,19 @@ function ComentariosMusic({ songId }) {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <div align="center">
+                <Button
+                    sx={{
+                        backgroundColor: '#3f51b5',  // Color principal del botón
+                        color: '#fff',               // Color del texto
+                        fontSize: '16px',            // Tamaño del texto
+                        borderRadius: '8px',         // Bordes redondeados
+                        '&:hover': {                 // Estilo al pasar el cursor
+                            backgroundColor: '#00BFFF' // Color de fondo en hover
+                        }
+                    }}
+                    onClick={handleOpen}>Comentar musica</Button>
+            </div>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -272,6 +284,7 @@ function ComentariosMusic({ songId }) {
                                 ))}
                             </div>
                             <textarea
+                                required
                                 className="reply-box"
                                 placeholder="Escribe un comentario....."
                                 value={newComment}

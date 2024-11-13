@@ -16,7 +16,7 @@ function UserLogin() {
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
-        setError('');  // Reset error on toggle
+        setError('');
     };
 
     const handleLogin = async () => {
