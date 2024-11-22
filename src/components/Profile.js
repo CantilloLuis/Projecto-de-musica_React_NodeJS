@@ -30,16 +30,16 @@ function Profile() {
 
 
     return (
-        <div class="profile">
-            <i class='bx bxs-bell'></i>
-            <i class='bx bxs-cog'></i>
-            <i class='bx bx-log-out' onClick={cerrar_sesion}> Cerrar sesion</i>
+        <div className="profile">
+            <i className='bx bxs-bell'></i>
+            <i className='bx bxs-cog'></i>
+            <i className='bx bx-log-out' onClick={cerrar_sesion}> Cerrar sesion</i>
 
-            <div class="user">
-                <div class="left">
+            <div className="user">
+                <div className="left">
                     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
                 </div>
-                <div class="right">
+                <div className="right">
                     <h5>{getUsername}</h5>
                 </div>
             </div>

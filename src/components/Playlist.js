@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import songImage from '../assets/song-1.png';
 import MusicPlayer from './MusicPlayer';
 import { SongContext } from './SongContext';
 import axios from 'axios';

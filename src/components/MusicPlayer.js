@@ -3,6 +3,8 @@ import { SongContext } from './SongContext';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import ComentariosMusic from './ComentariosMusic';
+import axios from 'axios';
+
 
 function MusicPlayer() {
     const { currentSong } = useContext(SongContext);
@@ -21,21 +23,7 @@ function MusicPlayer() {
             setLiked(currentSong.likes > 0);
 
             // Metodo para calcular el promedio de las canciones
-            if (currentSong.comentarios && currentSong.comentarios.length > 0) {
-                const ratings = currentSong.comentarios
-                    .map(comentario => comentario.calificacion)
-                    .filter(calificacion => calificacion !== undefined && calificacion !== 0); // Ensure calificacion exists
-
-                if (ratings.length > 0) {
-                    const totalRating = ratings.reduce((acc, calificacion) => acc + calificacion, 0);
-                    const averageRating = totalRating / ratings.length;
-                    setRatingAverage(averageRating);
-                } else {
-                    setRatingAverage(0);
-                }
-            } else {
-                setRatingAverage(0);
-            }
+            fetchMusicById();
 
         }
     }, [currentSong]);
@@ -43,6 +31,33 @@ function MusicPlayer() {
     if (!currentSong) {
         return <div className="music-player">Selecciona una música</div>;
     }
+
+
+
+    const fetchMusicById = () => {
+        axios.get(`http://localhost:3001/api/music/musicById/${currentSong._id}`)
+            .then(response => {
+                const music = response.data;
+
+                // Calcular el promedio de las calificaciones
+                if (music.comentarios && music.comentarios.length > 0) {
+                    const ratings = music.comentarios
+                        .map(comentario => comentario.calificacion)
+                        .filter(calificacion => calificacion !== undefined && calificacion !== 0); // Filtrar calificaciones válidas
+
+                    if (ratings.length > 0) {
+                        const totalRating = ratings.reduce((acc, calificacion) => acc + calificacion, 0);
+                        const averageRating = totalRating / ratings.length;
+                        setRatingAverage(averageRating); // Guardar el promedio
+                    } else {
+                        setRatingAverage(0);
+                    }
+                } else {
+                    setRatingAverage(0); // No hay comentarios
+                }
+            })
+            .catch(error => console.error("Error al obtener la música:", error));
+    };
 
 
     const handleProgress = (currentTime) => {
@@ -98,7 +113,7 @@ function MusicPlayer() {
             </div>
 
             {/* Componente de comentarios sobre las musicas */}
-            <ComentariosMusic songId={currentSong._id} />
+            <ComentariosMusic onSongRating={fetchMusicById} songId={currentSong._id} />
         </div>
     );
 }

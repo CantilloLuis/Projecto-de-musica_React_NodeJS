@@ -12,6 +12,8 @@ import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Rating from '@mui/material/Rating';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 
@@ -32,7 +34,7 @@ const style = {
 
 };
 
-function ComentariosMusic({ songId }) {
+function ComentariosMusic({ songId, onSongRating }) {
 
     const location = useLocation();
     const [getUserId, setUserId] = useState([]);
@@ -41,7 +43,6 @@ function ComentariosMusic({ songId }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [calificacion, setCalificacion] = useState(0);
-
     const [comments, setComments] = useState([]); // Array de comentarios
     const [newComment, setNewComment] = useState(''); // Texto del nuevo comentario
     const [editingCommentId, setEditingCommentId] = useState(null); // ID del comentario que se está editando
@@ -88,7 +89,7 @@ function ComentariosMusic({ songId }) {
 
     // Manejar la adición de un nuevo comentario
     const handleAddComment = async () => {
-        if (newComment.trim()) {
+        if (newComment.trim() && calificacion != 0) {
             try {
                 const response = await fetch(`http://localhost:3001/api/music/comentarios/${songId}`, {
                     method: 'POST',
@@ -99,11 +100,33 @@ function ComentariosMusic({ songId }) {
                 });
                 if (response.ok) {
                     setNewComment(''); // Limpiar el campo de comentario
+                    setCalificacion('');
                     fetchComments();
+                    onSongRating();
+
+                    //Alerta que saldra al agregar comentarios
+                    toast.success('Comentario agregado', {
+                        duration: 3000, // 3 segundos
+                        position: 'top-center',
+                        style: {
+                            background: '#4caf50',
+                            color: '#fff',
+                        },
+                    });
+
                 }
             } catch (error) {
                 console.error('Error al añadir comentario:', error);
             }
+        } else {
+
+            // Validar que el textarea no esté vacío
+            toast.error('El comentario y la calificacion son obligatorios.', {
+                duration: 3000,
+                position: 'top-center',
+                style: { background: '#ff4d4d', color: '#fff' },
+            });
+
         }
     };
 
@@ -144,6 +167,7 @@ function ComentariosMusic({ songId }) {
 
             if (response.ok) {
                 setComments(comments.filter((comment) => comment._id !== commentId)); // Eliminar el comentario de la lista
+                onSongRating();
             }
         } catch (error) {
             console.error('Error al eliminar comentario:', error);
@@ -190,10 +214,11 @@ function ComentariosMusic({ songId }) {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <div class="comments-section">
+                        <div className="comments-section">
+                            <Toaster reverseOrder={false} />
                             <div className='comments-list'>
                                 {comments.map((comment) => (
-                                    <div class="comment">
+                                    <div className="comment">
 
                                         {editingCommentId === comment._id ? (
                                             <div>
@@ -213,16 +238,16 @@ function ComentariosMusic({ songId }) {
                                             </div>
                                         ) : (
                                             <div>
-                                                <div class="comment-header">
-                                                    <div class="avatar"></div>
-                                                    <span class="username"> <strong>{comment.username === getUsername ? 'Tú' : comment.username}</strong>:</span>
-                                                    <span class="timestamp">10 day ago</span>
+                                                <div className="comment-header">
+                                                    <div className="avatar"></div>
+                                                    <span className="username"> <strong>{comment.username === getUsername ? 'Tú' : comment.username}</strong>:</span>
+                                                    <span className="timestamp">10 day ago</span>
                                                 </div>
-                                                <p class="comment-text">
+                                                <p className="comment-text">
                                                     {comment.text}
                                                 </p>
-                                                <div class="comment-actions">
-                                                    <a href="#" class="action-button">👍 Reply</a>
+                                                <div className="comment-actions">
+                                                    <a href="#" className="action-button">👍 Reply</a>
                                                 </div>
                                                 {comment.userId === getUserId && (
                                                     <div style={{ display: 'flex', gap: '10px' }}>
@@ -306,7 +331,7 @@ function ComentariosMusic({ songId }) {
                             />
                         </div>
                         <div align="center">
-                            <button onClick={handleAddComment} class="comment-button">Comentar</button>
+                            <button onClick={handleAddComment} className="comment-button">Comentar</button>
                         </div>
 
                     </Typography>
