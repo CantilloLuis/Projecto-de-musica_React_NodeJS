@@ -84,18 +84,32 @@ export default function BasicModal() {
             });
 
             if (response.ok) {
-                alert('Canción subida con éxito');
+                //SweetAlert para que salga una confirmacion de que se subio correctamente la musica
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Canción subida con éxito",
+                    showConfirmButton: false,
+                    timer: 10000
+                });
                 setFormData({ titulo: '', nombreArtista: '', genero: '', duracion: '', urlImagen: '', likes: 0 });
                 setAudioFile(null);
                 handleClose(); // Cerrar el modal después de enviar
                 window.location.reload();
 
             } else {
-                alert('Hubo un error al subir la canción');
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Hubo un error al subir la canción",
+                });
             }
         } catch (error) {
-            console.error('Error al enviar los datos:', error);
-            alert('Error al subir la canción');
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Hubo un error al subir la canción",
+            });
         }
     };
 
