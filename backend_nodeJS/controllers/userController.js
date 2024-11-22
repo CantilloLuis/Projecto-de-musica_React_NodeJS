@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
         await newUser.save();
 
         // Generar token de autenticación
-        const token = jwt.sign({ userId: newUser._id }, 'your_jwt_secret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: newUser._id }, 'your_jwt_secret');
 
         res.status(201).json({ token, user: { username: newUser.username, email: newUser.email } });
     } catch (error) {
@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Usuario o contraseña incorrectos' });
 
         // Generar token de autenticación
-        const token = jwt.sign({ userId: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, 'your_jwt_secret');
 
         res.status(200).json({ token, user: { username: user.username, email: user.email } });
     } catch (error) {

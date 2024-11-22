@@ -8,6 +8,8 @@ function Playlist() {
     const [getMusic, setMusic] = useState([]);
     const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
     const { setCurrentSong } = useContext(SongContext);
+    const [selectedGenre, setSelectedGenre] = useState(''); // Estado para el género seleccionado
+
 
     useEffect(() => {
         ListMusic();
@@ -34,11 +36,20 @@ function Playlist() {
             .catch(error => console.error("Error incrementando las vistas:", error));
     };
 
-    // Filtra la lista de canciones según el término de búsqueda
+    // Extrae géneros únicos de la lista de música
+    const uniqueGeneros = Array.from(new Set(getMusic.map(musica => musica.genero)));
+
+    // Filtra la lista de canciones según el término de búsqueda y el género seleccionado
     const filteredMusic = getMusic.filter((musica) =>
-        musica.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        musica.nombreArtista.toLowerCase().includes(searchTerm.toLowerCase())
+        (musica.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            musica.nombreArtista.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (selectedGenre === '' || musica.genero === selectedGenre)
     );
+
+    // Manejador para seleccionar un género
+    const handleGenreClick = (genero) => {
+        setSelectedGenre(genero === selectedGenre ? '' : genero); // Deselecciona si es el mismo género
+    };
 
     return (
         <div className="playlist">
@@ -48,9 +59,15 @@ function Playlist() {
                     <a href="#">See all</a>
                 </div>
                 <div className="items">
-                    <div className="item"><p>Electro<br />Pop</p></div>
-                    <div className="item"><p>Dance<br />Beat</p></div>
-                    <div className="item"><p>Clubhouse<br />Remix</p></div>
+                    {uniqueGeneros.map((genero, index) => (
+                        <div
+                            className={`item ${genero === selectedGenre ? 'selected' : ''}`} // Clase adicional si está seleccionado
+                            key={index}
+                            onClick={() => handleGenreClick(genero)}
+                        >
+                            <p>{genero}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
 

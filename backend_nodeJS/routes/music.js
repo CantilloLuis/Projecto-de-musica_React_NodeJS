@@ -3,16 +3,16 @@ const router = express.Router();
 
 const musicController = require("../controllers/musicController");
 
-//Rutas declaradas para el crud
+//Rutas declaradas para la manipulacion de las musicas
 router.get("/consultarMusic", musicController.getMusic);
 router.post("/enviarMusic", musicController.uploadMusic);
 router.get('/musicById/:_id', musicController.getMusicById);
 router.get('/audio/:fileId', musicController.getAudio);
 
-//Rutas para manejar los like y dislike
+//Rutas para manejar los like y dislike de los comentarios o reseñas
 router.post("/:_id/comentario_reaccion/:commentId", musicController.toggleReaction);
 
-// Ruta para incrementar las vistas de una canción
+// Ruta para incrementar las vistas de una canción en especifico
 router.put('/:_id/incrementar_vistas', musicController.incrementViews);
 
 

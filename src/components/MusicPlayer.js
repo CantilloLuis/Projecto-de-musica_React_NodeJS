@@ -59,6 +59,8 @@ function MusicPlayer() {
 
     return (
         <div className="music-player">
+            {/* Datos que se observan en el reproductor de musica */}
+
             <div className="top-section">
                 <div className="header">
                     <h5>Player</h5>
@@ -94,6 +96,8 @@ function MusicPlayer() {
                     <h5>LYRICS</h5>
                 </div>
             </div>
+
+            {/* Componente de comentarios sobre las musicas */}
             <ComentariosMusic songId={currentSong._id} />
         </div>
     );

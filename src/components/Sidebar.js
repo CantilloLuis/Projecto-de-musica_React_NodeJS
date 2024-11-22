@@ -43,17 +43,6 @@ function Sidebar() {
                     <li><i className="bx bxs-caret-right-circle"></i><a href="#">Kael Fischer</a></li>
                 </ul>
             </div>
-
-            {/* <div className="playing">
-                <div className="top">
-                    <img src="assets/current.png" alt="Actual" />
-                    <h4>Apple<br />Homepod</h4>
-                </div>
-                <div className="bottom">
-                    <i className="bx bx-podcast"></i>
-                    <p>Reproduciendo en Dispositivo</p>
-                </div>
-            </div> */}
         </aside>
     );
 }

@@ -37,7 +37,7 @@ function Profile() {
 
             <div class="user">
                 <div class="left">
-                    <img src="assets/profile.png" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
                 </div>
                 <div class="right">
                     <h5>{getUsername}</h5>

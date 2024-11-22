@@ -33,6 +33,7 @@ exports.uploadMusic = [
             const newMusic = new Music({
                 titulo: req.body.titulo,
                 nombreArtista: req.body.nombreArtista,
+                genero: req.body.genero,
                 duracion: req.body.duracion,
                 urlImagen: req.body.urlImagen,
                 contentType: req.file.mimetype,
@@ -119,7 +120,7 @@ exports.getAudio = async (req, res) => {
 };
 
 
-//
+//Metodo para manejar los like y dislike de los comentarios o reseñas
 exports.toggleReaction = async (req, res) => {
     const { _id, commentId } = req.params; // ID de la canción y del comentario
     const { userId, action, username } = req.body;   // ID del usuario y acción ("like" o "dislike")

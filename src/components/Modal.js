@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+
 
 
 
@@ -38,6 +40,7 @@ export default function BasicModal() {
     const [formData, setFormData] = React.useState({
         titulo: '',
         nombreArtista: '',
+        genero: '',
         duracion: '',
         urlImagen: '',
         likes: 0,
@@ -68,6 +71,7 @@ export default function BasicModal() {
         const data = new FormData();
         data.append('titulo', formData.titulo);
         data.append('nombreArtista', formData.nombreArtista);
+        data.append('genero', formData.genero);
         data.append('duracion', formData.duracion);
         data.append('urlImagen', formData.urlImagen);
         data.append('likes', formData.likes);
@@ -81,7 +85,7 @@ export default function BasicModal() {
 
             if (response.ok) {
                 alert('Canción subida con éxito');
-                setFormData({ titulo: '', nombreArtista: '', duracion: '', urlImagen: '', likes: 0 });
+                setFormData({ titulo: '', nombreArtista: '', genero: '', duracion: '', urlImagen: '', likes: 0 });
                 setAudioFile(null);
                 handleClose(); // Cerrar el modal después de enviar
                 window.location.reload();
@@ -97,6 +101,8 @@ export default function BasicModal() {
 
     return (
         <div>
+            {/* Modal que contiene el formulario de registro de las musicas */}
+
             <li><i className="bx bxs-plus-square"></i><a href="#" onClick={handleOpen}>Subir Musica</a></li>
             <Modal
                 open={open}
@@ -148,6 +154,24 @@ export default function BasicModal() {
                         fullWidth
                         margin="normal"
                     />
+
+                    <FormControl fullWidth>
+                        <InputLabel id="genre-select-label">Género</InputLabel>
+                        <Select
+                            labelId="genre-select-label"
+                            id="genre-select"
+                            name='genero'
+                            value={formData.genero}
+                            label="Género"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="rock">Rock</MenuItem>
+                            <MenuItem value="pop">Pop</MenuItem>
+                            <MenuItem value="salsa">Salsa</MenuItem>
+                            <MenuItem value="electronic">Electronica</MenuItem>
+                        </Select>
+                    </FormControl>
+
 
                     <Button
                         component="label"

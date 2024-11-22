@@ -23,6 +23,7 @@ const comentario = new mongoose.Schema({
 const musicSchema = new mongoose.Schema({
     titulo: { type: String, required: true },
     nombreArtista: { type: String, required: true },
+    genero: { type: String, required: false },
     duracion: { type: String, required: true },
     urlImagen: { type: String, required: true },
     contentType: { type: String, required: true },
