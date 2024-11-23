@@ -6,8 +6,22 @@ var app = express();
 const morgan = require("morgan");
 app.use(morgan("tiny"))
 
-app.use(cors())
+// Asegúrate de incluir el dominio de producción en la configuración de CORS
+const allowedOrigins = [
+    'https://projecto-de-musica-react-node-js.vercel.app', // Dominio del frontend en producción
+    'http://localhost:3000' // Opcional, para pruebas locales
+];
 
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true // Si usas cookies o cabeceras con credenciales
+}));
 
 const musicRoutes = require("./routes/music");
 const userRoutes = require("./routes/user");

@@ -213,12 +213,12 @@ function ComentariosMusic({ songId, onSongRating }) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography component={'span'} id="modal-modal-description" sx={{ mt: 2 }}>
                         <div className="comments-section">
                             <Toaster reverseOrder={false} />
                             <div className='comments-list'>
                                 {comments.map((comment) => (
-                                    <div className="comment">
+                                    <div key={comment._id} className="comment">
 
                                         {editingCommentId === comment._id ? (
                                             <div>
@@ -239,7 +239,7 @@ function ComentariosMusic({ songId, onSongRating }) {
                                         ) : (
                                             <div>
                                                 <div className="comment-header">
-                                                    <div className="avatar"></div>
+                                                    <img className='avatar' src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
                                                     <span className="username"> <strong>{comment.username === getUsername ? 'Tú' : comment.username}</strong>:</span>
                                                     <span className="timestamp">10 day ago</span>
                                                 </div>
@@ -319,7 +319,7 @@ function ComentariosMusic({ songId, onSongRating }) {
                             ></textarea>
                             <Rating
                                 name="calificacion"
-                                value={calificacion}
+                                value={Number(calificacion)}
                                 onChange={handleRatingChange}
                                 precision={1} // Permite seleccionar valores enteros
                                 max={5} // Define el máximo de estrellas (1 a 5)
