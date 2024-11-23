@@ -4,9 +4,11 @@ import axios from 'axios';
 function Trending() {
 
     const [getImg, setImg] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/music/consultarMusic")
+        axios.get(`${API_URL}/api/music/consultarMusic`)
             .then(response => {
                 setImg(response.data);
             })

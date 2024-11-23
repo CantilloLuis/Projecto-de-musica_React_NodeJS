@@ -34,6 +34,7 @@ const style = {
 
 };
 
+
 function ComentariosMusic({ songId, onSongRating }) {
 
     const location = useLocation();
@@ -47,6 +48,7 @@ function ComentariosMusic({ songId, onSongRating }) {
     const [newComment, setNewComment] = useState(''); // Texto del nuevo comentario
     const [editingCommentId, setEditingCommentId] = useState(null); // ID del comentario que se está editando
     const [editedCommentText, setEditedCommentText] = useState(''); // Texto editado del comentario
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
     useEffect(() => {
         if (songId) {
@@ -72,7 +74,7 @@ function ComentariosMusic({ songId, onSongRating }) {
     // Obtener comentarios para la canción actual
     const fetchComments = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/music/musicById/${songId}`);
+            const response = await fetch(`${API_URL}/api/music/musicById/${songId}`);
             if (response.ok) {
                 const data = await response.json();
                 setComments(data.comentarios || []);
@@ -91,7 +93,7 @@ function ComentariosMusic({ songId, onSongRating }) {
     const handleAddComment = async () => {
         if (newComment.trim() && calificacion != 0) {
             try {
-                const response = await fetch(`http://localhost:3001/api/music/comentarios/${songId}`, {
+                const response = await fetch(`${API_URL}/api/music/comentarios/${songId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -134,7 +136,7 @@ function ComentariosMusic({ songId, onSongRating }) {
     const handleUpdateComment = async (commentId) => {
         if (editedCommentText.trim()) {
             try {
-                const response = await fetch(`http://localhost:3001/api/music/${songId}/comentario_update/${commentId}`, {
+                const response = await fetch(`${API_URL}/api/music/${songId}/comentario_update/${commentId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -161,7 +163,7 @@ function ComentariosMusic({ songId, onSongRating }) {
     // Manejar la eliminación de un comentario
     const handleDeleteComment = async (commentId) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/music/${songId}/comentario_delete/${commentId}`, {
+            const response = await fetch(`${API_URL}/api/music/${songId}/comentario_delete/${commentId}`, {
                 method: 'DELETE',
             });
 
@@ -176,7 +178,7 @@ function ComentariosMusic({ songId, onSongRating }) {
 
     const handleLikeDislike = async (commentId, action, userId, username) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/music/${songId}/comentario_reaccion/${commentId}`, {
+            const response = await fetch(`${API_URL}/api/music/${songId}/comentario_reaccion/${commentId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

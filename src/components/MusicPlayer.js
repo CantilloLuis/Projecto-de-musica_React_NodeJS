@@ -14,11 +14,13 @@ function MusicPlayer() {
     const [liked, setLiked] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [ratingAverage, setRatingAverage] = useState(0);
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 
 
     useEffect(() => {
         if (currentSong) {
-            setAudioSrc(`http://localhost:3001/api/music/audio/${currentSong.fileId}/`);
+            setAudioSrc(`${API_URL}/api/music/audio/${currentSong.fileId}/`);
             setLikes(currentSong.likes || 0);
             setLiked(currentSong.likes > 0);
 
@@ -35,7 +37,7 @@ function MusicPlayer() {
 
 
     const fetchMusicById = () => {
-        axios.get(`http://localhost:3001/api/music/musicById/${currentSong._id}`)
+        axios.get(`${API_URL}/api/music/musicById/${currentSong._id}`)
             .then(response => {
                 const music = response.data;
 

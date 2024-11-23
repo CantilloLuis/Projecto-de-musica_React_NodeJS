@@ -17,7 +17,9 @@ function UserLogin() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Inicializamos el hook
-    const [AlertState, setAlertState] = useState(false)
+    const [AlertState, setAlertState] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 
 
     const toggleForm = () => {
@@ -38,7 +40,7 @@ function UserLogin() {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/api/user/login', {
+            const response = await axios.post(`${API_URL}/api/user/login`, {
                 username,
                 password,
             });
@@ -67,7 +69,7 @@ function UserLogin() {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/user/signup', {
+            const response = await axios.post(`${API_URL}/api/user/signup`, {
                 username,
                 email,
                 password,

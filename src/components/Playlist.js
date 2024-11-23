@@ -8,6 +8,7 @@ function Playlist() {
     const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
     const { setCurrentSong } = useContext(SongContext);
     const [selectedGenre, setSelectedGenre] = useState(''); // Estado para el género seleccionado
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 
     useEffect(() => {
@@ -16,7 +17,7 @@ function Playlist() {
 
     // Función para obtener la lista de música
     const ListMusic = () => {
-        axios.get("http://localhost:3001/api/music/consultarMusic")
+        axios.get(`${API_URL}/api/music/consultarMusic`)
             .then(response => {
                 setMusic(response.data);
             })
@@ -27,7 +28,7 @@ function Playlist() {
         setCurrentSong(song);
 
         // Llama a la API para incrementar el contador de vistas
-        axios.put(`http://localhost:3001/api/music/${song._id}/incrementar_vistas`)
+        axios.put(`${API_URL}/api/music/${song._id}/incrementar_vistas`)
             .then(response => {
                 console.log("Vistas incrementadas:", response.data);
                 setCurrentSong(response.data.updatedSong); // Establece la canción actual con las vistas actualizadas

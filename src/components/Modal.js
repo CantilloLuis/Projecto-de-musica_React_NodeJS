@@ -38,6 +38,8 @@ const VisuallyHiddenInput = styled('input')({
 
 export default function BasicModal() {
     const [open, setOpen] = React.useState(false);
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
     const [formData, setFormData] = React.useState({
         titulo: '',
         nombreArtista: '',
@@ -79,7 +81,7 @@ export default function BasicModal() {
         data.append('audio', audioFile);
 
         try {
-            const response = await fetch('http://localhost:3001/api/music/enviarMusic', {
+            const response = await fetch(`${API_URL}/api/music/enviarMusic`, {
                 method: 'POST',
                 body: data,
             });
