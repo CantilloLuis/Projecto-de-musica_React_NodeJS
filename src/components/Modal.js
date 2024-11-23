@@ -93,12 +93,12 @@ export default function BasicModal() {
                     icon: "success",
                     title: "Canción subida con éxito",
                     showConfirmButton: false,
-                    timer: 20000
+                    timer: 10000
                 });
                 setFormData({ titulo: '', nombreArtista: '', genero: '', duracion: '', urlImagen: '', likes: 0 });
                 setAudioFile(null);
                 handleClose(); // Cerrar el modal después de enviar
-                // window.location.reload();
+                window.location.reload();
 
             } else {
                 Swal.fire({
