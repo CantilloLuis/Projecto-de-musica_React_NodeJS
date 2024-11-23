@@ -120,7 +120,7 @@ export default function BasicModal() {
         <div>
             {/* Modal que contiene el formulario de registro de las musicas */}
 
-            <li><i className="bx bxs-plus-square"></i><a href="#" onClick={handleOpen}>Subir Musica</a></li>
+            <li><i className="bx bxs-plus-square"></i><a onClick={handleOpen}>Subir Musica</a></li>
             <Modal
                 open={open}
                 onClose={handleClose}
