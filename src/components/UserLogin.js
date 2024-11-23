@@ -120,7 +120,7 @@ function UserLogin() {
                             />
                         </div>
                         <button className="action-btn" onClick={handleLogin}>Iniciar sesión</button>
-                        <p>No tienes una cuenta? <a href="#" className='showSignup' onClick={toggleForm}>Registrarse</a></p>
+                        <p>No tienes una cuenta? <a className='showSignup' onClick={toggleForm}>Registrarse</a></p>
                     </div>
                 ) : (
                     // Formulario de Registro
@@ -172,7 +172,7 @@ function UserLogin() {
                             />
                         </div>
                         <button className="action-btn" onClick={handleSignup}>Registrar</button>
-                        <p>Ya tienes una cuenta? <a href="#" className="showLogin" onClick={toggleForm}>Iniciar sesión</a></p>
+                        <p>Ya tienes una cuenta? <a className="showLogin" onClick={toggleForm}>Iniciar sesión</a></p>
                         {AlertState && (
                             <Stack sx={{ width: '100%' }} spacing={2}>
                                 <Alert severity="success">
