@@ -7,9 +7,9 @@ function Header() {
                 <button className="menu-btn" id="menu-open">
                     <i className="bx bx-menu"></i>
                 </button>
-                <a href="#">Music</a>
-                <a href="#">Live</a>
-                <a href="#">Podcast</a>
+                <a>Music</a>
+                <a>Live</a>
+                <a>Podcast</a>
             </div>
             {/* <div className="search">
                 <i className="bx bx-search"></i>

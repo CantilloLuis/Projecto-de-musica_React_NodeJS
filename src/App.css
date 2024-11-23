@@ -534,7 +534,6 @@ body {
 }
 
 @media screen and (max-width: 1400px) {
-
   .container .sidebar .playing .bottom p {
     font-size: 10px;
   }
@@ -572,11 +571,9 @@ body {
   .container main .playlist .music-list .items .item .info>p {
     display: none;
   }
-
 }
 
 @media screen and (max-width: 1200px) {
-
   .container main header .search {
     width: 40%;
   }
@@ -645,11 +642,9 @@ body {
     padding: 10px;
     border-radius: 16px;
   }
-
 }
 
 @media screen and (max-width: 992px) {
-
   .container {
     grid-template-columns: 3fr 2fr;
   }
@@ -706,50 +701,207 @@ body {
   .container .sidebar .logo button {
     display: flex;
   }
-
 }
 
 @media screen and (max-width: 768px) {
-
   .container {
     grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    position: relative;
+  }
+
+  .container .sidebar {
+    position: fixed;
+    left: -100%;
+    z-index: 1001;
+    background-color: #121212;
+  }
+
+  .container main {
+    order: 1;
+    width: 100%;
+    padding: 20px;
   }
 
   .container main .trending,
   .container main .playlist {
-    display: none;
-  }
-
-  .container main header .search {
-    width: 40%;
-  }
-
-  .container main header .search input {
     display: block;
   }
 
   .container .right-section {
-    padding: 20px 36px;
+    order: 2;
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 20px;
   }
 
+  .container .mobile-only .right-section .profile {
+    display: none;
+  }
+
+  /* Perfil más pequeño */
   .container .right-section .profile {
-    justify-content: center;
-    margin-bottom: 20px;
+    position: fixed;
+    top: 10px;
+    /* Menos espacio desde la parte superior */
+    left: 10px;
+    /* Menos espacio desde la parte izquierda */
+    z-index: 1002;
+    background-color: #121212;
+    padding: 10px 20px;
+    /* Menos padding */
+    border-radius: 4px;
+    /* Borde más redondeado */
+    color: white;
+    font-size: 12px;
+    /* Fuente aún más pequeña */
+    display: flex;
+    align-items: center;
+    width: auto;
+  }
+
+  /* Estilo para el botón de cerrar sesión más pequeño */
+  .mobile-only {
+    position: fixed;
+    top: 30px;
+    /* Menos espacio desde la parte superior */
+    right: 20px;
+    /* Menos espacio desde la parte derecha */
+    z-index: 1002;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .mobile-only .logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    /* Menos padding */
+    border-radius: 4px;
+    /* Borde más redondeado */
+    font-size: 12px;
+    /* Fuente más pequeña */
+    cursor: pointer;
+  }
+
+  .mobile-only .logout-button:hover {
+    background-color: #d32f2f;
   }
 
   .container .right-section .music-player {
-    height: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container .right-section .music-player .song-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .container .right-section .music-player .song-info img {
-    width: 300px;
-    height: 190px;
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    object-fit: cover;
   }
 
-  .container .right-section .music-player .buttons i {
-    font-size: 22px;
+  .container .right-section .music-player .song-info .description {
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
   }
 
+  .container .right-section .music-player .song-info .description h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .container .right-section .music-player .song-info .description p {
+    font-size: 14px;
+    color: #b3b3b3;
+  }
+
+  .container .right-section .music-player .progress {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .container .right-section .music-player .progress .time {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #b3b3b3;
+  }
+
+  .container .right-section .music-player .player-actions {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .container .right-section .music-player .player-actions .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 15px;
+  }
+
+  .container .right-section .music-player .player-actions .buttons i {
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .container .right-section .music-player .player-actions .buttons .play-button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #1db954;
+  }
+
+  .container main .playlist {
+    margin-top: 20px;
+  }
+
+  .container main .playlist .music-list {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container .right-section .music-player .song-info img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .container .right-section .music-player .player-actions .buttons {
+    gap: 20px;
+  }
+
+  .container .right-section .music-player .player-actions .buttons i {
+    font-size: 20px;
+  }
+
+  .container .right-section .music-player .player-actions .buttons .play-button {
+    width: 45px;
+    height: 45px;
+  }
 }
 
 /* Contenedor principal sin scroll adicional */
@@ -931,105 +1083,89 @@ body {
 /* Contenedor principal del carrusel */
 .slider-frame {
   width: 200px;
-  /* Tamaño del carrusel */
+  /* Tamaño del carrusel en pantallas grandes */
   height: 200px;
   /* Altura del carrusel */
   margin: 20px auto;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* Contenedor de las listas de imágenes */
 .slider-frame ul {
   display: flex;
   padding: 0;
-  width: 100%;
-  /* Ahora el contenedor ocupará todo el ancho disponible */
-  animation: slide 16s infinite alternate ease-in-out;
   margin: 0;
+  animation: slide 16s infinite alternate ease-in-out;
+  list-style: none;
+  width: 100%;
+  /* Valor predeterminado en pantallas grandes */
+  height: auto;
+  /* Altura predeterminada */
+}
+
+/* Cambios específicos para pantallas móviles */
+@media (max-width: 768px) {
+  .slider-frame ul {
+    width: 200px;
+    /* Ancho específico en móviles */
+    height: 70px;
+    /* Altura específica en móviles */
+  }
+
+  .slider-frame {
+    height: 170px;
+  }
+
 }
 
 /* Cada imagen en el carrusel */
 .slider-frame li {
-  width: 100%;
-  /* Cada imagen ocupa todo el ancho del contenedor */
-  list-style: none;
+  flex: 0 0 100%;
+  /* Cada imagen ocupa el 100% del carrusel */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  list-style: none;
 }
 
 /* Estilo de las imágenes */
 .slider-frame img {
   width: 100%;
-  /* Las imágenes ocupan el 100% del contenedor */
   height: 100%;
-  /* Ajuste de la altura */
   object-fit: cover;
-  /* Asegura que las imágenes cubran el espacio sin distorsionarse */
   border-radius: 8px;
-  /* Esquinas redondeadas */
 }
 
 /* Animación del carrusel */
 @keyframes slide {
   0% {
-    margin-left: 0;
-  }
-
-  20% {
-    margin-left: 0;
+    transform: translateX(0);
   }
 
   25% {
-    margin-left: -100%;
-    /* Mueve una imagen a la izquierda */
-  }
-
-  45% {
-    margin-left: -100%;
-    /* Mantiene la segunda imagen visible */
+    transform: translateX(-100%);
   }
 
   50% {
-    margin-left: -200%;
-    /* Mueve a la tercera imagen */
-  }
-
-  70% {
-    margin-left: -200%;
-    /* Mantiene la tercera imagen visible */
+    transform: translateX(-200%);
   }
 
   75% {
-    margin-left: -300%;
-    /* Mueve a la cuarta imagen */
+    transform: translateX(-300%);
   }
 
   100% {
-    margin-left: -300%;
-    /* Mantiene la cuarta imagen visible */
+    transform: translateX(0);
   }
 }
 
 /* Efecto de pausa al pasar el ratón por encima */
 .slider-frame ul:hover {
   animation-play-state: paused;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .slider-frame {
-    width: 100%;
-    /* El carrusel ocupa todo el ancho de la pantalla en dispositivos pequeños */
-  }
-
-  .slider-frame img {
-    width: 100%;
-    /* Las imágenes ocupan el 100% del ancho en dispositivos pequeños */
-    height: 100px;
-    /* Ajuste de altura para pantallas más pequeñas */
-  }
 }
 
 .like-button {

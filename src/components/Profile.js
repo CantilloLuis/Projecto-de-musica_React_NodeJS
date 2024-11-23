@@ -33,7 +33,7 @@ function Profile() {
         <div className="profile">
             <i className='bx bxs-bell'></i>
             <i className='bx bxs-cog'></i>
-            <i className='bx bx-log-out' onClick={cerrar_sesion}> Cerrar sesion</i>
+            <i className='bx bx-log-out mobile-only' onClick={cerrar_sesion}> Cerrar sesion</i>
 
             <div className="user">
                 <div className="left">
