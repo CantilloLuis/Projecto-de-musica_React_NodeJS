@@ -243,7 +243,17 @@ function ComentariosMusic({ songId, onSongRating }) {
                                                 <div className="comment-header">
                                                     <img className='avatar' src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
                                                     <span className="username"> <strong>{comment.username === getUsername ? 'Tú' : comment.username}</strong>:</span>
-                                                    <span className="timestamp">10 day ago</span>
+                                                    <span className="timestamp">
+                                                        {new Date(comment.createdAt).toLocaleString('es-CO', {
+                                                            weekday: 'long', // día de la semana (opcional)
+                                                            year: 'numeric',
+                                                            month: 'long', // mes con nombre largo
+                                                            day: 'numeric',
+                                                            hour: 'numeric',
+                                                            minute: 'numeric',
+                                                            second: 'numeric'
+                                                        })}
+                                                    </span>
                                                 </div>
                                                 <p className="comment-text">
                                                     {comment.text}
@@ -310,27 +320,42 @@ function ComentariosMusic({ songId, onSongRating }) {
 
                                 ))}
                             </div>
-                            <textarea
-                                required
-                                className="reply-box"
-                                placeholder="Escribe un comentario....."
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                style={{ width: '60%', height: '80px', fontSize: '14px' }} // Ajusta el tamaño y estilo aquí
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
 
-                            ></textarea>
-                            <Rating
-                                name="calificacion"
-                                value={Number(calificacion)}
-                                onChange={handleRatingChange}
-                                precision={1} // Permite seleccionar valores enteros
-                                max={5} // Define el máximo de estrellas (1 a 5)
-                                sx={{
-                                    color: '#f5a623', // Color de las estrellas (ajústalo según tu preferencia)
-                                    fontSize: '2rem', // Tamaño de las estrellas
-                                    marginBottom: '10px', // Margen inferior si necesitas espacio
-                                }}
-                            />
+                                <textarea
+                                    required
+                                    className="reply-box"
+                                    placeholder="Escribe un comentario....."
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    style={{ width: '60%', height: '80px', fontSize: '14px' }} // Ajusta el tamaño y estilo aquí
+
+                                ></textarea>
+                                <div
+                                    style={{
+                                        backgroundColor: 'white',  // Fondo blanco
+                                        borderRadius: '8px',       // Bordes redondeados
+                                        width: '20%'
+                                    }}
+                                >
+                                    <h3 style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
+                                        Calificación
+                                    </h3>                                <Rating
+                                        name="calificacion"
+                                        value={Number(calificacion)}
+                                        onChange={handleRatingChange}
+                                        precision={1} // Permite seleccionar valores enteros
+                                        max={5} // Define el máximo de estrellas (1 a 5)
+                                        sx={{
+                                            color: '#f5a623', // Color de las estrellas (ajústalo según tu preferencia)
+                                            fontSize: '2rem', // Tamaño de las estrellas
+                                            marginBottom: '10px', // Margen inferior si necesitas espacio
+                                            padding: 0, // Elimina el padding extra alrededor de las estrellas
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
                         </div>
                         <div align="center">
                             <button onClick={handleAddComment} className="comment-button">Comentar</button>
