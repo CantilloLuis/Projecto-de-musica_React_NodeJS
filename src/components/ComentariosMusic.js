@@ -340,7 +340,8 @@ function ComentariosMusic({ songId, onSongRating }) {
                                 >
                                     <h3 style={{ margin: 0, fontSize: '1rem', color: '#333' }}>
                                         Calificación
-                                    </h3>                                <Rating
+                                    </h3>
+                                    <Rating
                                         name="calificacion"
                                         value={Number(calificacion)}
                                         onChange={handleRatingChange}

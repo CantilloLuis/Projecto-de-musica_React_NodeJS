@@ -185,6 +185,7 @@ export default function BasicModal() {
                             <MenuItem value="rock">Rock</MenuItem>
                             <MenuItem value="pop">Pop</MenuItem>
                             <MenuItem value="salsa">Salsa</MenuItem>
+                            <MenuItem value="electronic">Champeta</MenuItem>
                             <MenuItem value="electronic">Electronica</MenuItem>
                         </Select>
                     </FormControl>
